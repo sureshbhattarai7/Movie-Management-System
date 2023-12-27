@@ -1,4 +1,10 @@
 #MOVIE MANAGEMENT SYSTEM
 
-Built using modern technologies: Node.js, Express.js, MongoDB and Mongoose
+#TECHNOLOGIES USED
+Node.js, Express.js, MongoDB and Mongoose
 
+#APPLICATION NEEDED
+- Node (at least version 14)
+- Text Editor (VsCode)
+- Postman
+- MongoDB Compass
