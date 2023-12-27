@@ -9,7 +9,7 @@ const movieSchema = mongoose.Schema(
         },
         movieGenre: {
             type: String,
-            //required: [true, "Movie genre is required!"],
+            required: [true, "Movie genre is required!"],
             enum: {
                 values: [
                     "Action",
@@ -29,7 +29,6 @@ const movieSchema = mongoose.Schema(
                 message:
                     "Please specify either genres: 1. Action, 2. Adventure, 3. Comedy, 4. Crime, 5. Documentary, 6. Fantasy, 7. History, 8. Horror, 9. Mystery, 10. Sci-fi, 11. Thriller, 12.War",
             },
-            uppercase: true
         },
         country: {
             type: String,
@@ -53,7 +52,7 @@ const movieSchema = mongoose.Schema(
         },
         imageCover: {
             type: String,
-            required: [true, "Image cover is required!"],
+            //required: [true, "Image cover is required!"],
         },
         images: [String],
         price: {
@@ -68,11 +67,6 @@ const movieSchema = mongoose.Schema(
         ratingsQuantity: {
             type: Number,
             default: 0
-        },
-        actor: {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Actor',
-            required: [true, 'Movie must have an actor!']
         }
     },
     {
@@ -80,13 +74,6 @@ const movieSchema = mongoose.Schema(
         toObject: { virtuals: true },
     }
 );
-
-movieSchema.pre(/^find/, function (next) {
-    this.populate({
-        path: 'actor',
-        select: 'actorName'
-    });
-});
 
 //Virtual don't keep the elements in the Database
 movieSchema.virtual("discount").get(function () {
@@ -100,6 +87,12 @@ movieSchema.virtual("total").get(function () {
 //Virtual populate - Can get access to all the reviews of certain movie but without keeping the ID of movie in the Database 
 movieSchema.virtual('reviews', {
     ref: 'Review',
+    foreignField: 'movie',
+    localField: '_id'
+});
+
+movieSchema.virtual('actors', {
+    ref: 'Actor',
     foreignField: 'movie',
     localField: '_id'
 });
