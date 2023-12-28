@@ -18,7 +18,10 @@ exports.createReview = catchAsync(async (req, res, next) => {
 });
 
 exports.getReviews = catchAsync(async (req, res, next) => {
-    const review = await Review.find();
+    let filter = {}
+    if (req.params.movieId) filter = { movie: req.params.movieId };
+    
+    const review = await Review.find(filter);
     res.status(200).json({
         status: 'success',
         totalReview: review.length,
