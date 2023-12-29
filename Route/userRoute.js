@@ -18,7 +18,10 @@ router.route('/')
     .get(userController.getUsers);
 
 router.route('/:id')
-    .get(userController.getUser);
+    .get(userController.getUser)
+    .delete(//authController.protect,
+        //authController.restrictTo('admin'),
+        userController.deleteUser);
 
 
 
