@@ -3,15 +3,20 @@ const catchAsync = require('./../Utils/catchAsync');
 const AppError = require("./../Utils/appError");
 const factory = require('./handlerFactory');
 
-exports.createMovie = catchAsync(async (req, res, next) => {
-    const movie = await Movie.create(req.body);
-    res.status(200).json({
-        status: "success",
-        data: {
-            movie,
-        },
-    });
-});
+
+exports.deleteMovie = factory.deleteOne(Movie);
+exports.updateMovie = factory.updateOne(Movie);
+exports.createMovie = factory.createOne(Movie);
+
+// exports.createMovie = catchAsync(async (req, res, next) => {
+//     const movie = await Movie.create(req.body);
+//     res.status(200).json({
+//         status: "success",
+//         data: {
+//             movie,
+//         },
+//     });
+// });
 
 exports.getMovies = catchAsync(async (req, res, next) => {
     const movies = await Movie.find().populate('actors').populate('reviews');
@@ -41,24 +46,24 @@ exports.getMovie = catchAsync(async (req, res, next) => {
 
 });
 
-exports.updateMovie = catchAsync(async (req, res, next) => {
-    const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-    });
+// exports.updateMovie = catchAsync(async (req, res, next) => {
+//     const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
+//         new: true,
+//         runValidators: true,
+//     });
 
-    if (!movie) {
-        return next(new AppError(`No movie found with that ID`, 404));
-    }
+//     if (!movie) {
+//         return next(new AppError(`No movie found with that ID`, 404));
+//     }
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            movie,
-        },
-    });
+//     res.status(200).json({
+//         status: "success",
+//         data: {
+//             movie,
+//         },
+//     });
 
-});
+// });
 
 // exports.deleteMovie = catchAsync(async (req, res, next) => {
 //     const movie = await Movie.findByIdAndDelete(req.params.id);
@@ -73,6 +78,3 @@ exports.updateMovie = catchAsync(async (req, res, next) => {
 //     });
 
 // });
-
-
-exports.deleteMovie = factory.deleteOne(Movie);

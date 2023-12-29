@@ -8,7 +8,10 @@ const Router = express.Router({ mergeParams: true });
 // POST /movies/reviews
 
 Router.route('/')
-    .post(authController.protect, authController.restrictTo('user'), reviewController.createReview)
+    .post(authController.protect,
+        authController.restrictTo('user'),
+        reviewController.setMovieUserIds,
+        reviewController.createReview)
     .get(reviewController.getReviews);
 
 Router.route('/:id')

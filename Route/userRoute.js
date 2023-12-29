@@ -19,8 +19,11 @@ router.route('/')
 
 router.route('/:id')
     .get(userController.getUser)
-    .delete(//authController.protect,
-        //authController.restrictTo('admin'),
+    .patch(authController.protect,
+        authController.restrictTo('admin'),
+        userController.updateUser)
+    .delete(authController.protect,
+        authController.restrictTo('admin'),
         userController.deleteUser);
 
 
