@@ -1,6 +1,8 @@
 const Actor = require('./../Model/actorModel');
 const catchAsync = require('./../Utils/catchAsync');
 const AppError = require('./../Utils/appError');
+const factory = require('./handlerFactory');
+
 
 exports.createActor = catchAsync(async (req, res, next) => {
     const actor = await Actor.create(req.body);
@@ -56,15 +58,4 @@ exports.updateActor = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.deleteActor = catchAsync(async (req, res, next) => {
-    const actor = await Actor.findByIdAndDelete(req.params.id);
-
-    if (!actor) {
-        return next(new AppError(`Can not find actor with that ID!`));
-    };
-    
-    res.status(200).json({
-        status: 'success',
-        data: null
-    });
-});
+exports.deleteActor = factory.deleteOne(Actor);

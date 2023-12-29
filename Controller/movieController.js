@@ -1,6 +1,7 @@
 const Movie = require("./../Model/movieModel");
 const catchAsync = require('./../Utils/catchAsync');
 const AppError = require("./../Utils/appError");
+const factory = require('./handlerFactory');
 
 exports.createMovie = catchAsync(async (req, res, next) => {
     const movie = await Movie.create(req.body);
@@ -59,16 +60,19 @@ exports.updateMovie = catchAsync(async (req, res, next) => {
 
 });
 
-exports.deleteMovie = catchAsync(async (req, res, next) => {
-    const movie = await Movie.findByIdAndDelete(req.params.id);
+// exports.deleteMovie = catchAsync(async (req, res, next) => {
+//     const movie = await Movie.findByIdAndDelete(req.params.id);
 
-    if (!movie) {
-        return next(new AppError(`No movie found with that ID`, 404));
-    }
+//     if (!movie) {
+//         return next(new AppError(`No movie found with that ID`, 404));
+//     }
  
-    res.status(200).json({
-        status: "success",
-        data: null,
-    });
+//     res.status(200).json({
+//         status: "success",
+//         data: null,
+//     });
 
-});
+// });
+
+
+exports.deleteMovie = factory.deleteOne(Movie);

@@ -1,6 +1,7 @@
 const Review = require('./../Model/reviewModel');
 const catchAsync = require('./../Utils/catchAsync');
 const AppError = require('./../Utils/appError');
+const factory = require('./handlerFactory');
 
 exports.createReview = catchAsync(async (req, res, next) => {
     //Allow nested routes
@@ -63,14 +64,4 @@ exports.updateReview = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.deleteReview = catchAsync(async (req, res, next) => {
-    const review = Review.findByIdAndDelete(req.params.id);
-    if (!review) {
-        return next(new AppError('Can not find review with that ID!', 400));
-    };
-
-    res.status(200).json({
-        status: 'success',
-        data: null
-    });
-});
+exports.deleteReview = factory.deleteOne(Review);
