@@ -76,13 +76,13 @@ const movieSchema = mongoose.Schema(
 );
 
 //Virtual don't keep the elements in the Database
-movieSchema.virtual("discount").get(function () {
-    return this.price * 0.1;
-});
+// movieSchema.virtual("discount").get(function () {
+//     return this.price * 0.1;
+// });
 
-movieSchema.virtual("total").get(function () {
-    return this.price - this.discount;
-});
+// movieSchema.virtual("total").get(function () {
+//     return this.price - this.discount;
+// });
 
 //Virtual populate - Can get access to all the reviews of certain movie but without keeping the ID of movie in the Database 
 movieSchema.virtual('reviews', {

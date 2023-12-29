@@ -13,7 +13,7 @@ exports.createMovie = catchAsync(async (req, res, next) => {
 });
 
 exports.getMovies = catchAsync(async (req, res, next) => {
-    const movies = await Movie.find();
+    const movies = await Movie.find().populate('actors').populate('reviews');
 
     res.status(200).json({
         status: "success",
