@@ -6,6 +6,8 @@ const factory = require('./handlerFactory');
 exports.createActor = factory.createOne(Actor);
 exports.updateActor = factory.updateOne(Actor);
 exports.deleteActor = factory.deleteOne(Actor);
+exports.getActor = factory.getOne(Actor);
+exports.getActors = factory.getAll(Actor);
 
 exports.getActors = catchAsync(async (req, res, next) => {
     const actor = await Actor.find();
@@ -18,18 +20,18 @@ exports.getActors = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.getActor = catchAsync(async (req, res, next) => {
-    const actor = await Actor.findById(req.params.id);
+// exports.getActor = catchAsync(async (req, res, next) => {
+//     const actor = await Actor.findById(req.params.id);
 
-    if (!actor) {
-        return next(new AppError(`Can not find actor with that ID!`));
-    };
+//     if (!actor) {
+//         return next(new AppError(`Can not find actor with that ID!`));
+//     };
 
-    res.status(200).json({
-        status: 'success',
-        data: {
-            actor
-        }
-    });
-});
+//     res.status(200).json({
+//         status: 'success',
+//         data: {
+//             actor
+//         }
+//     });
+// });
 

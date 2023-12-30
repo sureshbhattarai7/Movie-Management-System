@@ -11,6 +11,10 @@ exports.setMovieUserIds = (req, res, next) => {
 };
 
 exports.createReview = factory.createOne(Review);
+exports.updateReview = factory.updateOne(Review);
+exports.deleteReview = factory.deleteOne(Review);
+exports.getReview = factory.getOne(Review);
+exports.getReviews = factory.getAll(Review);
 
 // exports.createReview = catchAsync(async (req, res, next) => {
 //     //Allow nested routes
@@ -27,35 +31,34 @@ exports.createReview = factory.createOne(Review);
 //     });
 // });
 
-exports.updateReview = factory.updateOne(Review);
-exports.deleteReview = factory.deleteOne(Review);
 
-exports.getReviews = catchAsync(async (req, res, next) => {
-    let filter = {}
-    if (req.params.movieId) filter = { movie: req.params.movieId };
+
+// exports.getReviews = catchAsync(async (req, res, next) => {
+//     let filter = {}
+//     if (req.params.movieId) filter = { movie: req.params.movieId };
     
-    const review = await Review.find(filter);
-    res.status(200).json({
-        status: 'success',
-        totalReview: review.length,
-        data: {
-            review
-        }
-    });
-});
+//     const review = await Review.find(filter);
+//     res.status(200).json({
+//         status: 'success',
+//         totalReview: review.length,
+//         data: {
+//             review
+//         }
+//     });
+// });
 
-exports.getReview = catchAsync(async (req, res, next) => {
-    const review = await Review.findById(req.params.id);
-    if (!review) {
-        return next(new AppError('Can not find review with that ID!', 400));
-    };
+// exports.getReview = catchAsync(async (req, res, next) => {
+//     const review = await Review.findById(req.params.id);
+//     if (!review) {
+//         return next(new AppError('Can not find review with that ID!', 400));
+//     };
 
-    res.status(200).json({
-        status: 'success',
-        data: {
-            review
-        }
-    });
-});
+//     res.status(200).json({
+//         status: 'success',
+//         data: {
+//             review
+//         }
+//     });
+// });
 
 
