@@ -4,8 +4,8 @@ const actorController = require('./../Controller/actorController');
 const authController = require('./../Controller/authController');
 
 Router.route('/')
-    .post(authController.protect,
-        authController.restrictTo('admin'),
+    .post(//authController.protect,
+        //authController.restrictTo('admin'),
         actorController.createActor)
     .get(actorController.getActors);
 
