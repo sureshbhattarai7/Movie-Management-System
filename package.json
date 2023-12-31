@@ -4,8 +4,7 @@
   "description": "Implementation of simple movie ticket booking system using Node.js",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/netlify-lambda serve server.js",
-    "build": "./node_modules/.bin/netlify-lambda build server.js",
+    "start": "nodemon server.js",
     "start:prod": "set NODE_ENV=production && nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

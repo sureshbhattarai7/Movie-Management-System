@@ -9,17 +9,33 @@ process.on('uncaughtException', err => {
 });
 
 const DB = process.env.DATABASE;
+const DB2 = process.env.DATABASE2;
 
-mongoose.connect(DB, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('Database connected successfully!');
-}).catch(() => {
-    console.log('Database connection failed!');
-});
+
+if (process.env.NODE_ENV.trim() === 'production') {
+    mongoose.connect(DB, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
+    }).then(() => {
+        console.log('Database connected successfully!');
+    }).catch((err) => {
+        console.log(err);
+        console.log('Database connection failed!');
+    });
+} else {
+    mongoose.connect(DB2, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
+    }).then(() => {
+        console.log('Database connected successful!');
+    }).catch(() => {
+        console.log('Database connection failed!');
+    });
+};
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {
