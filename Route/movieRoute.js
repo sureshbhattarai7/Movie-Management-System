@@ -10,8 +10,8 @@ const reviewRouter = require('./../Route/reviewRoute');
 router.use('/:movieId/reviews', reviewRouter);
 
 router.route('/')
-    .post(//authController.protect,
-        //authController.restrictTo('admin'),
+    .post(authController.protect,
+        authController.restrictTo('admin'),
         movieController.createMovie)
     .get(movieController.getMovies);
 
