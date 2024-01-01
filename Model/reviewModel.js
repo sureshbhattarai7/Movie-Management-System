@@ -49,11 +49,5 @@ reviewSchema.pre(/^find/, function (next) {
 });
 
 
-reviewSchema.pre('save', function (next) {
-    //this points to current review
-    this.constructor.calcAverageRatings(this.movie);
-    next();
-})
-
 const Review = mongoose.model("Review", reviewSchema);
 module.exports = Review;
