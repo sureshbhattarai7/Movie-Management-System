@@ -1,7 +1,9 @@
 #MOVIE MANAGEMENT SYSTEM
 
 #TECHNOLOGIES USED
-Node.js, Express.js, MongoDB and Mongoose
+- Node.js, 
+- Express.js, 
+- MongoDB and Mongoose
 
 #APPLICATION NEEDED
 - Node (at least version 14)
