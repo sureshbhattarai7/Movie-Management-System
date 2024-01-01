@@ -48,21 +48,6 @@ reviewSchema.pre(/^find/, function (next) {
     next();
 });
 
-reviewSchema.statics.calcAverageRatings = async function (movieId) {
-    const stats = await this.aggregate([
-        {
-            $match: { movie },
-        },
-        {
-            $group: {
-                _id: '$movie',
-                nRating: { $sum: 1 },
-                averageRating: { $agv: '$rating' }
-            }
-        },
-    ]);
-    console.log(stats);
-};
 
 reviewSchema.pre('save', function (next) {
     //this points to current review
