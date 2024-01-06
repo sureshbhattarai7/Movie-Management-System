@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 
 const AppError = require('./Utils/appError');
@@ -13,6 +14,14 @@ const reviewRoute = require('./Route/reviewRoute');
 
 const app = express();
 app.use(express.json());
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'Views'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    res.status(200).render('base');
+})
 
 app.use('/api/v1/movies', movieRoute);
 app.use('/api/v1/users', userRoute);
