@@ -1,3 +1,5 @@
+const multer = require('multer');
+const sharp = require('sharp');
 const Movie = require("./../Model/movieModel");
 const catchAsync = require('./../Utils/catchAsync');
 const AppError = require("./../Utils/appError");
@@ -7,6 +9,34 @@ const AppError = require("./../Utils/appError");
 // exports.createMovie = factory.createOne(Movie);
 // exports.getMovie = factory.getOne(Movie);
 // exports.getMovies = factory.getAll(Movie);
+
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image')) {
+        cb(null, true)
+    } else {
+        cb(new AppError('Not an image! Please upload only images.', 400), false);
+    }
+};
+
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter
+});
+
+exports.uploadMovieImages = upload.fields([
+    { name: 'imageCover', maxCount: 1 },
+    { name: 'images', maxCount: 3 }
+]);
+
+//upload.single('images') req.file
+//upload.array('images', 5) req.files
+
+exports.resizeMovieImages = (req, res, next) => {
+    console.log(req.files);
+    next();
+}
 
 exports.createMovie = catchAsync(async (req, res, next) => {
     const movie = await Movie.create(req.body);

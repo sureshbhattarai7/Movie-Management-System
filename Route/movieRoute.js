@@ -19,6 +19,8 @@ router.route('/:id')
     .get(movieController.getMovie)
     .patch(authController.protect,
         authController.restrictTo('admin'),
+        movieController.uploadMovieImages,
+        movieController.resizeMovieImages,
         movieController.updateMovie)
     .delete(authController.protect,
         authController.restrictTo('admin'),
