@@ -56,7 +56,7 @@ exports.resizeMovieImages = catchAsync(async (req, res, next) => {
                 //.resize(2000, 1333)
                 .toFormat('jpeg')
                 .jpeg({ quality: 90 })
-                .toFile(`image/movies/${req.body.imageCover}`);
+                .toFile(`image/movies/${req.body.filename}`);
         
             req.body.images.push(filename);
         })
