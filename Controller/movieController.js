@@ -33,10 +33,38 @@ exports.uploadMovieImages = upload.fields([
 //upload.single('images') req.file
 //upload.array('images', 5) req.files
 
-exports.resizeMovieImages = (req, res, next) => {
-    console.log(req.files);
+exports.resizeMovieImages = catchAsync(async (req, res, next) => {
+    // console.log(req.files);
+
+    if (!req.files.imageCover || !req.files.images) return next();
+
+    //Processing CoverImage
+    req.body.imageCover = `movie-${req.params.id}-${Date.now()}-cover.jpeg`;
+    await sharp(req.files.imageCover[0].buffer)
+        //.resize(2000, 1333)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(`image/movies/${req.body.imageCover}`);
+
+    //Processing other Images
+    req.body.images = [];
+    await Promise.all(
+        req.files.images.map(async (file, i) => {
+            const filename = `movie-${req.params.id}-${Date.now()}-${i + 1}`;
+        
+            await sharp(file.buffer)
+                //.resize(2000, 1333)
+                .toFormat('jpeg')
+                .jpeg({ quality: 90 })
+                .toFile(`image/movies/${req.body.imageCover}`);
+        
+            req.body.images.push(filename);
+        })
+    );
+
     next();
-}
+
+});
 
 exports.createMovie = catchAsync(async (req, res, next) => {
     const movie = await Movie.create(req.body);
