@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 
 const AppError = require('./Utils/appError');
@@ -11,25 +10,16 @@ const movieRoute = require('./Route/movieRoute');
 const userRoute = require('./Route/userRoute');
 const actorRoute = require('./Route/actorRoute');
 const reviewRoute = require('./Route/reviewRoute');
+const bookingRoute = require('./Route/bookingRoute');
 
 const app = express();
 app.use(express.json());
-
-// app.set('view engine', 'pug');
-// app.set('views', path.join(__dirname, 'Views'));
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// app.get('/', (req, res) => {
-//     res.status(200).render('base', {
-//         movie: 'Kabaddi',
-//         user: 'Suresh'
-//     });
-// })
 
 app.use('/api/v1/movies', movieRoute);
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/actors', actorRoute);
 app.use('/api/v1/reviews', reviewRoute);
+app.use('api/v1/bookings', bookingRoute);
 
 
 app.all('*', (req, res, next) => {
