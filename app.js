@@ -19,7 +19,7 @@ app.use('/api/v1/movies', movieRoute);
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/actors', actorRoute);
 app.use('/api/v1/reviews', reviewRoute);
-app.use('api/v1/bookings', bookingRoute);
+app.use('/api/v1/bookings', bookingRoute);
 
 
 app.all('*', (req, res, next) => {
