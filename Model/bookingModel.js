@@ -29,7 +29,8 @@ bookingSchema.pre(/^find/, function (next) {
     this.populate('user').populate({
         path: 'Movie',
         select: 'movieName'
-    })
+    });
+    next();
 })
 
 const Booking = mongoose.model('Booking', bookingSchema);
