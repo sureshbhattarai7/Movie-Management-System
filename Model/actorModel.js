@@ -25,7 +25,7 @@ const actorSchema = mongoose.Schema(
         movie: {
             type: mongoose.Schema.ObjectId,
             ref: 'Movie',
-            required: [true, 'Actor must have at least one movie!']
+            //required: [true, 'Actor must have at least one movie!']
         }
     },
     {
