@@ -15,20 +15,40 @@ const bookingSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Booking must have a price!']
     },
+    seatNo: {
+        type: String,
+        unique: true,
+        required:[true, 'Seat number for user is not found!']
+    },
     createdAt: {
         type: Date,
         default: Date.now()
     },
+    showTime: {
+        type: String,
+        required: [true, 'Show time is needed!']
+    },
+    bookingDate: {
+        type: String,
+        required: [true, 'Booking date is required!']
+    },
     paid: {
         type: Boolean,
         default: true
+    },
+    transactionId: {
+        type: String,
+        required: [true, 'Transaction ID is required!']
     }
 });
 
 bookingSchema.pre(/^find/, function (next) {
-    this.populate('user').populate({
+    this.populate({
+        path: 'User',
+        select: 'fullName username email'
+    }).populate({
         path: 'Movie',
-        select: 'movieName'
+        select: 'movieName -_id'
     });
     next();
 })
