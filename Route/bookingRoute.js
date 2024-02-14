@@ -9,3 +9,4 @@ router.route('/khalti')
     .get(bookingController.getBooking);
 
 module.exports = router;
+
