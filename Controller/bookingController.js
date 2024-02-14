@@ -89,3 +89,4 @@ exports.checkSeatAvailability = catchAsync(async (req, res, next) => {
         data: result
     })
 });
+
